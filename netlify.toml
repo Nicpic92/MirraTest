@@ -1,1 +1,25 @@
+# netlify.toml
 
+[build]
+  # Base directory for the build. Assumes your HTML files are at the root.
+  base = "/"
+
+  # Command to build your site. For static HTML, a simple echo command is sufficient.
+  # Netlify will automatically handle npm install for functions if they have package.json.
+  command = "echo 'No build command needed for static HTML'"
+
+  # Directory that contains the deploy-ready HTML files and assets.
+  publish = "/"
+
+# Netlify Functions configuration
+[functions]
+  # Directory where your serverless functions are located.
+  # This path is relative to your base directory.
+  directory = "netlify/functions"
+
+# Redirects and Rewrites
+# This proxies any /api/ path to your Netlify Functions
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200 # Important for proxying requests, not redirecting the browser
